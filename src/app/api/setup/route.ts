@@ -52,7 +52,19 @@ export async function GET() {
       if (e.stderr) logs.push("Push Stderr: " + e.stderr);
     }
 
-    // 4. Run Seed
+    // 4. Manual SQL Fallback for missing columns
+    try {
+      logs.push("Attempting manual SQL column addition...");
+      const { prisma: prismaClient } = require('@/lib/prisma');
+      await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imageZoom REAL DEFAULT 1`);
+      await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imagePosX REAL DEFAULT 50`);
+      await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imagePosY REAL DEFAULT 50`);
+      logs.push("Manual SQL: Columns added (or already existed)");
+    } catch (e: any) {
+      logs.push("Manual SQL Note: " + e.message);
+    }
+
+    // 5. Run Seed
     try {
       const seedOutput = execSync(`${process.execPath} prisma/seed.js`, { encoding: 'utf8' });
       logs.push("Prisma Seed Output: " + seedOutput);
