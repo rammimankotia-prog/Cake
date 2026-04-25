@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   try {
@@ -8,11 +7,10 @@ export async function POST(request: Request) {
     if (username === 'Ramanmankotia' && password === 'Mahadev@24') {
       const response = NextResponse.json({ success: true });
       
-      // Set an auth cookie
-      const cookieStore = await cookies();
-      cookieStore.set('admin_session', 'authenticated', {
+      // Setting cookie directly on the response object is more reliable for immediate redirects
+      response.cookies.set('admin_session', 'authenticated', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true, // Most modern browsers require secure for cross-site but it's fine for same-site HTTPS
         sameSite: 'lax',
         maxAge: 60 * 60 * 24, // 24 hours
         path: '/',
