@@ -29,7 +29,7 @@ export async function GET() {
 
     // 2. Run Prisma Generate
     try {
-      const output = execSync('npx prisma generate', { encoding: 'utf8' });
+      const output = execSync(`${process.execPath} node_modules/prisma/build/index.js generate`, { encoding: 'utf8' });
       logs.push("Prisma Generate Output: " + output);
     } catch (e: any) {
       logs.push("Prisma Generate Error: " + e.message);
@@ -37,7 +37,7 @@ export async function GET() {
     
     // 3. Ensure database schema is pushed
     try {
-      const pushOutput = execSync('npx prisma db push --accept-data-loss', { encoding: 'utf8' });
+      const pushOutput = execSync(`${process.execPath} node_modules/prisma/build/index.js db push --accept-data-loss`, { encoding: 'utf8' });
       logs.push("Prisma DB Push Output: " + pushOutput);
     } catch (e: any) {
       logs.push("Prisma DB Push Error: " + e.message);
