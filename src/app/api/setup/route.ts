@@ -56,10 +56,12 @@ export async function GET() {
     try {
       logs.push("Attempting manual SQL column addition...");
       const { prisma: prismaClient } = require('@/lib/prisma');
-      await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imageZoom REAL DEFAULT 1`);
-      await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imagePosX REAL DEFAULT 50`);
-      await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imagePosY REAL DEFAULT 50`);
-      logs.push("Manual SQL: Columns added (or already existed)");
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imageZoom REAL DEFAULT 1`); } catch(e) {}
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imagePosX REAL DEFAULT 50`); } catch(e) {}
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imagePosY REAL DEFAULT 50`); } catch(e) {}
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN stock INTEGER DEFAULT 0`); } catch(e) {}
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN lowStock INTEGER DEFAULT 5`); } catch(e) {}
+      logs.push("Manual SQL: Columns addition attempted");
     } catch (e: any) {
       logs.push("Manual SQL Note: " + e.message);
     }
