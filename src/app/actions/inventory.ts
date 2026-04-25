@@ -41,3 +41,59 @@ export async function createProduct(data: any) {
 
   return { success: true, product };
 }
+
+export async function getProductAction(id: string) {
+  return await prisma.product.findUnique({
+    where: { id },
+    include: { 
+      category: true,
+      variants: true
+    }
+  });
+}
+
+export async function updateProductAction(id: string, data: any) {
+  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview } = data;
+
+  let dbCategory = await prisma.category.findFirst({
+    where: { name: category }
+  });
+
+  if (!dbCategory) {
+    dbCategory = await prisma.category.create({
+      data: { name: category, order: 0 }
+    });
+  }
+
+  // Update product basic info
+  await prisma.product.update({
+    where: { id },
+    data: {
+      name,
+      description,
+      basePrice,
+      discountPct,
+      categoryId: dbCategory.id,
+      weights: weights.join(", "),
+      image: imagePreview || undefined // Only update if new image provided
+    }
+  });
+
+  // Handle variants: easiest is to delete and recreate or sync
+  await prisma.variant.deleteMany({
+    where: { productId: id }
+  });
+
+  await prisma.variant.createMany({
+    data: weights.map((w: string) => ({
+      name: w,
+      price: variantPrices[w] || basePrice,
+      productId: id
+    }))
+  });
+
+  revalidatePath('/catalog');
+  revalidatePath('/admin/categories');
+
+  return { success: true };
+}

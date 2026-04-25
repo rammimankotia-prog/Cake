@@ -1,6 +1,7 @@
 "use client";
 
 import AdminSidebar from "@/components/AdminSidebar";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getCategories, deleteCategoryAction, deleteProductAction, updateCategoryNameAction, createCategoryAction, toggleProductActiveAction } from "@/app/actions/categories";
 
@@ -316,13 +317,13 @@ export default function AdminCategories() {
                               </td>
                               <td className="px-6 py-3.5 text-right">
                                 <div className="flex items-center justify-end space-x-2">
-                                  <button 
-                                    onClick={() => alert("Product editing is coming soon to the Inventory Flow.")}
+                                  <Link 
+                                    href={`/admin/inventory?edit=${product.id}`}
                                     className="p-1.5 rounded-lg text-navy/30 hover:text-navy hover:bg-navy/5 transition-colors">
                                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                     </svg>
-                                  </button>
+                                  </Link>
                                   <button
                                     onClick={() => deleteProduct(cat.id, product.id)}
                                     className="p-1.5 rounded-lg text-navy/20 hover:text-rose hover:bg-rose/5 transition-colors"

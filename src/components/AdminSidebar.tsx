@@ -155,8 +155,8 @@ export default function AdminSidebar() {
           onClick={handleLogout}
           className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-rose/60 hover:text-rose hover:bg-rose/5 transition-all"
         >
-          <span className="text-base">Logout</span>
-          <span className="text-sm font-semibold">Sign Out</span>
+          <span className="text-base text-rose/60">🚪</span>
+          <span className="text-sm font-semibold">Logout</span>
         </button>
 
         <button 
