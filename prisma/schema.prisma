@@ -53,15 +53,6 @@ model Product {
   sgst          Float     @default(0)
 }
 
-model ShopSettings {
-  id              String   @id @default("global")
-  openTime        String   @default("09:00")
-  closeTime       String   @default("01:00")
-  servicedPincodes String  @default("110033, 110009, 110007")
-  globalDiscount  Float    @default(0)
-  isShopOpen      Boolean  @default(true)
-}
-
 model Variant {
   id        String   @id @default(cuid())
   name      String   // e.g. "Large", "Chocolate"
@@ -100,12 +91,23 @@ model LoyaltyTier {
   users       User[]
 }
 
-model Campaign {
+model Lead {
   id          String   @id @default(cuid())
-  title       String
-  description String
-  discountPct Float
-  startDate   DateTime
-  endDate     DateTime
-  isActive    Boolean  @default(true)
+  name        String?
+  phone       String   @unique
+  email       String?
+  address     String?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ShopSettings {
+  id              String   @id @default("global")
+  openTime        String   @default("09:00")
+  closeTime       String   @default("01:00")
+  servicedPincodes String  @default("110033, 110009, 110007")
+  globalDiscount  Float    @default(0)
+  isShopOpen      Boolean  @default(true)
+  chatbotActive   Boolean  @default(true)
 }

@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 
 import { CartProvider } from "@/context/CartContext";
 import PincodeChecker from "@/components/PincodeChecker";
+import Chatbot from "@/components/Chatbot";
 
 export default function RootLayout({
   children,
@@ -36,6 +37,7 @@ export default function RootLayout({
         <CartProvider>
           <PincodeChecker />
           {children}
+          <Chatbot />
         </CartProvider>
       </body>
     </html>

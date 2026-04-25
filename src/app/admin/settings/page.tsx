@@ -11,6 +11,7 @@ export default function AdminSettings() {
     globalDiscount: 0,
     isShopOpen: true,
     shoppingCartEnabled: true,
+    chatbotActive: true,
   });
 
   const [saveStatus, setSaveStatus] = useState<null | 'saved'>(null);
@@ -30,7 +31,7 @@ export default function AdminSettings() {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     localStorage.setItem('bakery_settings', JSON.stringify(settings));
-    // Notify all components (Sidebar, Navbar) that settings changed
+    // Notify all components (Sidebar, Navbar, Chatbot) that settings changed
     window.dispatchEvent(new CustomEvent('bakery-settings-updated'));
     setSaveStatus('saved');
     setTimeout(() => setSaveStatus(null), 3000);
@@ -46,9 +47,33 @@ export default function AdminSettings() {
         </header>
         <div className="p-8 max-w-3xl space-y-8">
           
+          {/* AI Assistant Controls */}
+          <div className="glass p-8 rounded-3xl bg-white border border-slate-100 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-mint to-rose"></div>
+            <h3 className="text-xl font-serif text-navy mb-6 flex items-center">
+              <span className="w-8 h-8 bg-mint/10 text-mint rounded-lg flex items-center justify-center mr-3 text-sm">🤖</span>
+              Smart AI Assistant
+            </h3>
+            
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <div>
+                <h4 className="font-bold text-navy text-sm">Active AI Chatbot</h4>
+                <p className="text-xs text-navy/40 mt-1">When enabled, the floating AI assistant will be visible to all visitors for lead generation and inquiries.</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer ml-6">
+                <input 
+                  type="checkbox" 
+                  checked={settings.chatbotActive} 
+                  onChange={(e) => setSettings({...settings, chatbotActive: e.target.checked})}
+                  className="sr-only peer"
+                />
+                <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-mint shadow-inner"></div>
+              </label>
+            </div>
+          </div>
+
           {/* Storefront Features */}
           <div className="glass p-8 rounded-3xl bg-white border border-slate-100 shadow-sm relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose to-mint"></div>
             <h3 className="text-xl font-serif text-navy mb-6 flex items-center">
               <span className="w-8 h-8 bg-mint/10 text-mint rounded-lg flex items-center justify-center mr-3 text-sm">🛒</span>
               Storefront Features

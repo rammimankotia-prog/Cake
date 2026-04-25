@@ -63,7 +63,9 @@ export async function GET() {
       try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN lowStock INTEGER DEFAULT 5`); } catch(e) {}
       try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN cgst REAL DEFAULT 0`); } catch(e) {}
       try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN sgst REAL DEFAULT 0`); } catch(e) {}
-      logs.push("Manual SQL: Columns addition attempted");
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE ShopSettings ADD COLUMN chatbotActive INTEGER DEFAULT 1`); } catch(e) {}
+      try { await prismaClient.$executeRawUnsafe(`CREATE TABLE IF NOT EXISTS "Lead" ("id" TEXT NOT NULL PRIMARY KEY, "name" TEXT, "phone" TEXT NOT NULL UNIQUE, "email" TEXT, "address" TEXT, "notes" TEXT, "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)`); } catch(e) {}
+      logs.push("Manual SQL: Table/Column additions attempted");
     } catch (e: any) {
       logs.push("Manual SQL Note: " + e.message);
     }
