@@ -57,7 +57,7 @@ async function main() {
       name: 'Chilli Avocado Tartine',
       description: 'A fresh, flavorful open-faced sourdough sandwich with creamy avocado and chili flakes.',
       basePrice: 12.50,
-      image: '/hero.png',
+      image: '/avocado-tartine.png',
       categoryId: cafe.id,
       variants: { create: [{ name: 'Classic', price: 12.50 }] }
     }
@@ -69,7 +69,7 @@ async function main() {
       name: 'Paneer Tikka Croissant',
       description: 'A savory fusion highlight blending Indian spices with flaky French pastry techniques.',
       basePrice: 8.50,
-      image: '/hero.png',
+      image: '/paneer-croissant.png',
       categoryId: fusion.id,
       variants: { create: [{ name: 'Single', price: 8.50 }] }
     }
@@ -81,7 +81,7 @@ async function main() {
       name: 'Signature Kunafa Cake',
       description: 'A Middle Eastern-inspired signature fusion dessert with layers of crunch and cream.',
       basePrice: 70.00,
-      image: '/hero.png',
+      image: '/kunafa-cake.png',
       categoryId: cakes.id,
       variants: { create: [{ name: '1kg', price: 70.00 }] }
     }
@@ -93,7 +93,7 @@ async function main() {
       name: 'Mango Charlotte',
       description: 'A premium, seasonal elegant fruit cake. Light, airy, and artistically finished.',
       basePrice: 65.00,
-      image: '/hero.png',
+      image: '/mango-charlotte.png',
       categoryId: cakes.id,
       variants: { create: [{ name: '1kg', price: 65.00 }] }
     }

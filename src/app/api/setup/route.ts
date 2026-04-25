@@ -43,6 +43,14 @@ export async function GET() {
       logs.push("Prisma DB Push Error: " + e.message);
     }
 
+    // 4. Run Seed
+    try {
+      const seedOutput = execSync(`${process.execPath} prisma/seed.js`, { encoding: 'utf8' });
+      logs.push("Prisma Seed Output: " + seedOutput);
+    } catch (e: any) {
+      logs.push("Prisma Seed Error: " + e.message);
+    }
+
     return NextResponse.json({ 
       success: true, 
       message: "Setup script completed.",
