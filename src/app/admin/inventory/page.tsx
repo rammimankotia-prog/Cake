@@ -34,7 +34,7 @@ export default function AdminInventory() {
   }, [product.basePrice, product.weights]);
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [status, setStatus] = useState<null | 'saving' | 'success' | 'draft'>('idle');
+  const [status, setStatus] = useState<null | 'idle' | 'saving' | 'success' | 'draft'>('idle');
   const [isDragging, setIsDragging] = useState(false);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
