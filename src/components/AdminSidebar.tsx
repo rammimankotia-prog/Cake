@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getShopStatus } from "@/lib/shop-status";
 
@@ -73,6 +73,18 @@ export default function AdminSidebar() {
     window.location.href = "/admin"; // Force reload to apply permissions cleanly
   };
 
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      router.push('/admin/login');
+      router.refresh();
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  };
+
   const isActive = (href: string, exact?: boolean) =>
     exact ? pathname === href : pathname.startsWith(href);
 
@@ -130,7 +142,7 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-white/5">
+      <div className="p-4 border-t border-white/5 space-y-1">
         <Link
           href="/"
           className="flex items-center space-x-3 px-4 py-3 rounded-xl text-white/40 hover:text-white hover:bg-white/5 transition-all"
@@ -138,6 +150,15 @@ export default function AdminSidebar() {
           <span className="text-base">🏪</span>
           <span className="text-sm font-semibold">View Storefront</span>
         </Link>
+        
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-rose/60 hover:text-rose hover:bg-rose/5 transition-all"
+        >
+          <span className="text-base">Logout</span>
+          <span className="text-sm font-semibold">Sign Out</span>
+        </button>
+
         <button 
           onClick={switchRole}
           className="w-full mt-3 flex items-center space-x-3 px-4 py-2 hover:bg-white/5 rounded-xl transition-colors text-left"
