@@ -323,67 +323,58 @@ export default async function AdminDashboard() {
       </div>
     );
   } catch (error: any) {
+    console.error("Admin Dashboard Error:", error);
     return (
-      <div className="flex min-h-screen bg-slate-50 font-sans">
-        <AdminSidebar />
-        <main className="flex-1 ml-64 p-12">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden border border-red-100">
-              <div className="bg-red-500 p-8 text-white flex items-center space-x-6">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-4xl animate-pulse">
-                  ⚠️
-                </div>
-                <div>
-                  <h1 className="text-3xl font-serif font-bold">Admin Dashboard Error</h1>
-                  <p className="text-white/80 font-medium">A database or application error prevented this page from loading.</p>
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6 font-sans">
+        <div className="max-w-2xl w-full">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden">
+            <div className="bg-rose p-10 text-white flex items-center space-x-6">
+              <div className="w-20 h-20 bg-white/20 rounded-3xl flex items-center justify-center text-5xl animate-bounce">
+                ⚠️
+              </div>
+              <div>
+                <h1 className="text-4xl font-serif font-bold">System Sync Required</h1>
+                <p className="text-white/80 font-medium text-lg mt-1">Database update needed for new features.</p>
+              </div>
+            </div>
+
+            <div className="p-12 space-y-10">
+              <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+                <h3 className="text-navy font-bold text-xl mb-4 flex items-center space-x-2">
+                  <span>Diagnostic Trace</span>
+                  <span className="text-[10px] bg-navy/5 text-navy/40 px-2 py-0.5 rounded-full uppercase tracking-widest">Error Log</span>
+                </h3>
+                <div className="bg-slate-900 rounded-2xl p-6 font-mono text-xs text-rose/80 leading-relaxed overflow-x-auto max-h-40 custom-scrollbar">
+                  {error?.message || "Unknown connectivity or schema error."}
                 </div>
               </div>
 
-              <div className="p-10 space-y-8">
-                <div className="bg-slate-900 rounded-2xl p-6 relative group">
-                  <div className="absolute top-4 right-4 flex space-x-2">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                    <div className="w-3 h-3 rounded-full bg-green-400" />
-                  </div>
-                  <p className="text-rose font-mono text-sm mb-4"># Error Log Trace</p>
-                  <pre className="text-slate-300 font-mono text-sm overflow-x-auto whitespace-pre-wrap">
-                    {error.message || "Unknown server error occurred."}
-                  </pre>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-slate-50 rounded-3xl p-8 border border-slate-200 hover:border-rose/30 transition-all">
-                    <h3 className="text-navy font-bold text-lg mb-3">Diagnostic Result</h3>
-                    <p className="text-navy/60 text-sm leading-relaxed mb-6">
-                      If the error mentions <b>"no such column"</b>, your database is out of sync with the latest code updates. This happens after adding new features like stock management or image adjustments.
-                    </p>
-                    <a 
-                      href="/api/setup" 
-                      target="_blank"
-                      className="inline-flex items-center space-x-2 bg-navy text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-navy/90 transition-all shadow-lg"
-                    >
-                      <span>Run Database Fix</span>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    </a>
-                  </div>
-
-                  <div className="bg-rose/5 rounded-3xl p-8 border border-rose/10 flex flex-col justify-center">
-                    <h3 className="text-rose font-bold text-lg mb-2">Technical Support</h3>
-                    <p className="text-navy/50 text-sm mb-4">Please screenshot this page and send it to your developer for a quick fix.</p>
-                    <button 
-                      onClick={() => window.location.reload()}
-                      className="text-navy font-bold text-sm flex items-center space-x-2 hover:text-rose transition-colors"
-                    >
-                      <span>Try Refreshing Page</span>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-                    </button>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-mint/10 text-mint rounded-full flex-shrink-0 flex items-center justify-center font-bold">1</div>
+                  <div>
+                    <h4 className="text-navy font-bold">Update Database Schema</h4>
+                    <p className="text-navy/50 text-sm">Click the button below to add missing columns (like stock management) to your live database.</p>
                   </div>
                 </div>
+
+                <a 
+                  href="/api/setup" 
+                  target="_blank"
+                  className="w-full flex items-center justify-center space-x-3 bg-navy text-white py-5 rounded-2xl font-bold text-lg hover:bg-navy/90 transition-all shadow-xl shadow-navy/20 group"
+                >
+                  <span className="group-hover:scale-110 transition-transform">🚀 Run Database Sync Fix</span>
+                </a>
+              </div>
+
+              <div className="pt-6 border-t border-slate-100 text-center">
+                <p className="text-navy/30 text-xs font-medium italic">
+                  Note: This fix is common after adding inventory or image adjustment features.
+                </p>
               </div>
             </div>
           </div>
-        </main>
+        </div>
       </div>
     );
   }
