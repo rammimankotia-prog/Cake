@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
 
@@ -61,6 +62,8 @@ export default async function CatalogPage() {
             </section>
           ))}
         </div>
+
+        <Footer />
       </main>
     );
   } catch (error: any) {

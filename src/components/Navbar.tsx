@@ -25,16 +25,25 @@ export default function Navbar() {
       <nav className={`fixed w-full z-50 glass border-b border-glass-border ${!shopStatus.isOpen ? 'mt-7' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
-            <Link href="/" className="flex flex-col group">
-              <span className="text-2xl font-serif font-bold text-navy tracking-tight group-hover:text-rose transition-colors">
-                Delish <span className="text-rose group-hover:text-navy transition-colors">Mama</span>
-              </span>
-              <div className="flex items-center space-x-2 -mt-1">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-navy/40 font-bold">
-                  Cake Studio & Cafe
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="relative">
+                <div className="w-14 h-14 rounded-full border-2 border-rose flex items-center justify-center bg-white p-1 overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-500">
+                  <img 
+                    src="/logo.png" 
+                    alt="Delish Mama Logo" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="absolute -bottom-1 -right-1 bg-rose text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">
+                  2024
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-serif font-bold text-navy tracking-tight group-hover:text-rose transition-colors leading-none">
+                  Delish <span className="text-rose group-hover:text-navy transition-colors">Mama</span>
                 </span>
-                <span className="text-[9px] font-bold text-rose/50 uppercase tracking-widest border-l border-navy/10 pl-2">
-                  Est. 2024
+                <span className="text-[10px] uppercase tracking-[0.2em] text-navy/40 font-bold mt-1">
+                  Cake Studio & Cafe
                 </span>
               </div>
             </Link>

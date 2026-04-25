@@ -106,12 +106,15 @@ export default function AdminSidebar() {
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 bg-navy flex flex-col z-50 shadow-2xl">
       {/* Brand */}
-      <div className="p-6 border-b border-white/5">
+      <div className="p-6 border-b border-white/5 flex items-center space-x-3">
+        <div className="w-10 h-10 rounded-full border border-rose bg-white p-1 flex-shrink-0">
+          <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
+        </div>
         <Link href="/" className="block">
-          <p className="text-2xl font-serif font-bold text-white">
+          <p className="text-xl font-serif font-bold text-white leading-none">
             Delish <span className="text-rose">Mama</span>
           </p>
-          <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 mt-0.5">Admin Panel</p>
+          <p className="text-[9px] uppercase tracking-[0.2em] text-white/30 mt-1">Admin Panel</p>
         </Link>
       </div>
 

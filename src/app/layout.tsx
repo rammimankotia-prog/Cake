@@ -15,6 +15,9 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Delish Mama | Cake Studio & Cafe",
   description: "Artisanal cakes, handcrafted pastries, and specialty coffee at Delish Mama.",
+  icons: {
+    icon: "/logo.png",
+  }
 };
 
 import { CartProvider } from "@/context/CartContext";
