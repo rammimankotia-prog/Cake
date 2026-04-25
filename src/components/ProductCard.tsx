@@ -26,6 +26,7 @@ interface ProductCardProps {
 export default function ProductCard({ title, description, basePrice, image, variants, badge, badgeColor = "bg-rose" }: ProductCardProps) {
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(variants?.[0] || null);
   const [added, setAdded] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const { addToCart } = useCart();
   const shopStatus = getShopStatus();
 
@@ -49,10 +50,11 @@ export default function ProductCard({ title, description, basePrice, image, vari
       {/* Product Image */}
       <div className="relative h-64 w-full overflow-hidden bg-oat/50">
         <Image
-          src={image}
+          src={imgError ? '/hero.png' : (image || '/hero.png')}
           alt={title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
+          onError={() => setImgError(true)}
         />
 
         {/* Badge */}

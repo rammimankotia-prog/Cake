@@ -12,11 +12,11 @@ async function main() {
   await prisma.loyaltyTier.deleteMany();
 
   // Create Loyalty Tiers
-  const vip = await prisma.loyaltyTier.create({
+  await prisma.loyaltyTier.create({
     data: { name: 'VIP', minSpend: 1000, discountPct: 20 }
   });
   
-  const occasional = await prisma.loyaltyTier.create({
+  await prisma.loyaltyTier.create({
     data: { name: 'Occasional', minSpend: 0, discountPct: 10 }
   });
 
@@ -37,105 +37,81 @@ async function main() {
     data: { name: 'Delish Delight Boxes', order: 4 }
   });
 
-  // --- Signature Products ---
+  // --- Signature Products (All 3000+ as requested) ---
 
-  // 1. Delish Delight Box
-  await prisma.product.create({
-    data: {
-      name: 'Delish Delight Box',
-      description: 'Our signature artisanal curated box containing cookies, brownies, and marble cake.',
-      basePrice: 25.00,
-      image: '/hero.png',
-      categoryId: boxes.id,
-      variants: { create: [{ name: 'Standard', price: 25.00 }, { name: 'Luxury', price: 45.00 }] }
-    }
-  });
-
-  // 2. Chilli Avocado Tartine
-  await prisma.product.create({
-    data: {
-      name: 'Chilli Avocado Tartine',
-      description: 'A fresh, flavorful open-faced sourdough sandwich with creamy avocado and chili flakes.',
-      basePrice: 12.50,
-      image: '/avocado-tartine.png',
-      categoryId: cafe.id,
-      variants: { create: [{ name: 'Classic', price: 12.50 }] }
-    }
-  });
-
-  // 3. Paneer Tikka Croissant
-  await prisma.product.create({
-    data: {
-      name: 'Paneer Tikka Croissant',
-      description: 'A savory fusion highlight blending Indian spices with flaky French pastry techniques.',
-      basePrice: 8.50,
-      image: '/paneer-croissant.png',
-      categoryId: fusion.id,
-      variants: { create: [{ name: 'Single', price: 8.50 }] }
-    }
-  });
-
-  // 4. Kunafa Cake
+  // 1. Signature Kunafa Cake
   await prisma.product.create({
     data: {
       name: 'Signature Kunafa Cake',
       description: 'A Middle Eastern-inspired signature fusion dessert with layers of crunch and cream.',
-      basePrice: 70.00,
+      basePrice: 3200,
       image: '/kunafa-cake.png',
       categoryId: cakes.id,
-      variants: { create: [{ name: '1kg', price: 70.00 }] }
+      variants: { create: [{ name: '500g', price: 3200 }, { name: '1kg', price: 5800 }] }
     }
   });
 
-  // 5. Mango Charlotte
+  // 2. Boutique Birthday Cake
+  await prisma.product.create({
+    data: {
+      name: 'Boutique Birthday Cake',
+      description: 'Personalized celebration cakes crafted by Chef Bhawna. Pink fondant roses, gold leaf, and dreamy frosting.',
+      basePrice: 3500,
+      image: '/birthday-cake.png',
+      categoryId: cakes.id,
+      variants: { create: [{ name: '500g', price: 3500 }, { name: '1kg', price: 6200 }, { name: '2kg', price: 11000 }] }
+    }
+  });
+
+  // 3. Mango Charlotte
   await prisma.product.create({
     data: {
       name: 'Mango Charlotte',
       description: 'A premium, seasonal elegant fruit cake. Light, airy, and artistically finished.',
-      basePrice: 65.00,
+      basePrice: 3800,
       image: '/mango-charlotte.png',
       categoryId: cakes.id,
-      variants: { create: [{ name: '1kg', price: 65.00 }] }
+      variants: { create: [{ name: '500g', price: 3800 }, { name: '1kg', price: 6800 }] }
     }
   });
 
-  // 6. Banoffee Pie
+  // 4. Chilli Avocado Tartine
   await prisma.product.create({
     data: {
-      name: 'Studio Banoffee Pie',
-      description: 'A studio-quality classic with rich layers of banana, toffee, and cream.',
-      basePrice: 15.00,
-      image: '/hero.png',
+      name: 'Chilli Avocado Tartine',
+      description: 'A fresh, flavorful open-faced sourdough sandwich with creamy avocado and chili flakes.',
+      basePrice: 3100,
+      image: '/avocado-tartine.png',
+      categoryId: cafe.id,
+      variants: { create: [{ name: 'Classic', price: 3100 }] }
+    }
+  });
+
+  // 5. Paneer Tikka Croissant
+  await prisma.product.create({
+    data: {
+      name: 'Paneer Tikka Croissant',
+      description: 'A savory fusion highlight blending Indian spices with flaky French pastry techniques.',
+      basePrice: 3050,
+      image: '/paneer-croissant.png',
       categoryId: fusion.id,
-      variants: { create: [{ name: 'Single Serving', price: 15.00 }] }
+      variants: { create: [{ name: 'Single', price: 3050 }] }
     }
   });
 
-  // 7. Nutty Choco Slab
+  // 6. Delish Delight Box
   await prisma.product.create({
     data: {
-      name: 'Nutty Choco Slab',
-      description: 'A decadent chocolate block loaded with various premium nuts.',
-      basePrice: 18.00,
+      name: 'Delish Delight Box',
+      description: 'Our signature artisanal curated box containing cookies, brownies, and marble cake.',
+      basePrice: 4500,
       image: '/hero.png',
       categoryId: boxes.id,
-      variants: { create: [{ name: 'Standard Slab', price: 18.00 }] }
+      variants: { create: [{ name: 'Standard', price: 4500 }, { name: 'Luxury', price: 7500 }] }
     }
   });
 
-  // 8. Tropical Mojito
-  await prisma.product.create({
-    data: {
-      name: 'Tropical Mojito',
-      description: 'A refreshing signature cafe beverage with fresh mint and tropical flavors.',
-      basePrice: 7.50,
-      image: '/hero.png',
-      categoryId: cafe.id,
-      variants: { create: [{ name: 'Glass', price: 7.50 }] }
-    }
-  });
-
-  console.log('Seed data created successfully!');
+  console.log('Seed data updated with premium pricing successfully!');
 }
 
 main()

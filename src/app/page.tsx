@@ -250,7 +250,10 @@ export default function Home() {
               <Link href="/" className="text-3xl font-serif font-bold text-navy block mb-3">
                 Delish <span className="text-rose">Mama</span>
               </Link>
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-navy/30 mb-4">Cake Studio & Cafe</p>
+              <div className="flex items-center space-x-3 mb-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-navy/30">Cake Studio & Cafe</p>
+                <span className="text-[9px] font-bold text-rose/30 uppercase tracking-widest border-l border-navy/10 pl-3">Est. 2024</span>
+              </div>
               <p className="text-navy/60 text-sm leading-relaxed mb-4">
                 2nd Main Rd, opp. MCD Parking, Model Town Phase 2,<br/>
                 Pocket E, Model Town Phase I, Delhi, 110033

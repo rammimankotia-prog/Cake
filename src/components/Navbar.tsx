@@ -29,9 +29,14 @@ export default function Navbar() {
               <span className="text-2xl font-serif font-bold text-navy tracking-tight group-hover:text-rose transition-colors">
                 Delish <span className="text-rose group-hover:text-navy transition-colors">Mama</span>
               </span>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-navy/40 -mt-1 font-bold">
-                Cake Studio & Cafe
-              </span>
+              <div className="flex items-center space-x-2 -mt-1">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-navy/40 font-bold">
+                  Cake Studio & Cafe
+                </span>
+                <span className="text-[9px] font-bold text-rose/50 uppercase tracking-widest border-l border-navy/10 pl-2">
+                  Est. 2024
+                </span>
+              </div>
             </Link>
             
             <div className="hidden md:flex space-x-8 items-center">
