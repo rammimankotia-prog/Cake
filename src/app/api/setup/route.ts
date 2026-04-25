@@ -37,10 +37,19 @@ export async function GET() {
     
     // 3. Ensure database schema is pushed
     try {
-      const pushOutput = execSync(`${process.execPath} node_modules/prisma/build/index.js db push --accept-data-loss`, { encoding: 'utf8' });
+      logs.push("Attempting DB Push...");
+      let pushOutput = "";
+      try {
+        pushOutput = execSync(`npx prisma db push --accept-data-loss`, { encoding: 'utf8' });
+      } catch (e1) {
+        logs.push("npx prisma failed, trying direct path...");
+        pushOutput = execSync(`${process.execPath} node_modules/prisma/build/index.js db push --accept-data-loss`, { encoding: 'utf8' });
+      }
       logs.push("Prisma DB Push Output: " + pushOutput);
     } catch (e: any) {
       logs.push("Prisma DB Push Error: " + e.message);
+      if (e.stdout) logs.push("Push Stdout: " + e.stdout);
+      if (e.stderr) logs.push("Push Stderr: " + e.stderr);
     }
 
     // 4. Run Seed
