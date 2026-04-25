@@ -5,10 +5,11 @@ import AdminSidebar from "@/components/AdminSidebar";
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
-  const totalOrders = await prisma.order.count();
-  const totalRevenue = await prisma.order.aggregate({ _sum: { total: true } });
-  const totalProducts = await prisma.product.count();
-  const totalUsers = await prisma.user.count();
+  try {
+    const totalOrders = await prisma.order.count();
+    const totalRevenue = await prisma.order.aggregate({ _sum: { total: true } });
+    const totalProducts = await prisma.product.count();
+    const totalUsers = await prisma.user.count();
 
   const recentOrders = await prisma.order.findMany({
     take: 6,
@@ -123,10 +124,9 @@ export default async function AdminDashboard() {
     }))
   ].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 4);
 
-  try {
-    // We already did some prisma calls above, but let's wrap the whole return
-    return (
-      <div className="flex min-h-screen bg-slate-50">
+  // We already did some prisma calls above, but let's wrap the whole return
+  return (
+    <div className="flex min-h-screen bg-slate-50">
         <AdminSidebar />
   
         {/* Main Content */}
