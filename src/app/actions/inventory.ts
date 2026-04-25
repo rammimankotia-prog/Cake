@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function createProduct(data: any) {
-  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview, zoom, posX, posY } = data;
+  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview, zoom, posX, posY, stock } = data;
 
   let dbCategory = await prisma.category.findFirst({
     where: { name: category }
@@ -24,7 +24,7 @@ export async function createProduct(data: any) {
       discountPct,
       image: imagePreview || "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
       categoryId: dbCategory.id,
-      stock: 15,
+      stock: stock || 0,
       weights: weights.join(", "),
       isActive: true,
       imageZoom: zoom || 1,
@@ -56,7 +56,7 @@ export async function getProductAction(id: string) {
 }
 
 export async function updateProductAction(id: string, data: any) {
-  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview, zoom, posX, posY } = data;
+  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview, zoom, posX, posY, stock } = data;
 
   let dbCategory = await prisma.category.findFirst({
     where: { name: category }
@@ -81,7 +81,8 @@ export async function updateProductAction(id: string, data: any) {
       image: imagePreview || undefined,
       imageZoom: zoom,
       imagePosX: posX,
-      imagePosY: posY
+      imagePosY: posY,
+      stock: stock
     }
   });
 
@@ -102,4 +103,20 @@ export async function updateProductAction(id: string, data: any) {
   revalidatePath('/admin/categories');
 
   return { success: true };
+}
+
+export async function getLowStockProducts() {
+  return await prisma.product.findMany({
+    where: {
+      stock: {
+        lt: 2
+      },
+      isActive: true
+    },
+    select: {
+      id: true,
+      name: true,
+      stock: true
+    }
+  });
 }

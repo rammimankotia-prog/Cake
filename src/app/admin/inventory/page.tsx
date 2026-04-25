@@ -17,6 +17,7 @@ function InventoryContent() {
     description: "",
     basePrice: 0,
     discountPct: 0,
+    stock: 0,
     weights: ["500g", "1kg"],
     variantPrices: { "500g": 0, "1kg": 0 } as Record<string, number>
   });
@@ -38,6 +39,7 @@ function InventoryContent() {
             description: data.description || "",
             basePrice: data.basePrice,
             discountPct: data.discountPct || 0,
+            stock: data.stock || 0,
             weights: data.variants.map(v => v.name),
             variantPrices: data.variants.reduce((acc, v) => ({ ...acc, [v.name]: v.price }), {})
           });
@@ -137,6 +139,7 @@ function InventoryContent() {
             description: "",
             basePrice: 0,
             discountPct: 0,
+            stock: 0,
             weights: ["500g", "1kg"],
             variantPrices: { "500g": 0, "1kg": 0 }
           });
@@ -195,7 +198,7 @@ function InventoryContent() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-3 gap-6">
               <div>
                 <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">Category</label>
                 <select 
@@ -211,7 +214,7 @@ function InventoryContent() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">Base Price (Starting From)</label>
+                <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">Base Price</label>
                 <div className="relative">
                   <span className="absolute left-4 top-3 text-navy/40 font-bold">₹</span>
                   <input 
@@ -223,6 +226,18 @@ function InventoryContent() {
                     onChange={(e) => setProduct({...product, basePrice: parseFloat(e.target.value) || 0})}
                   />
                 </div>
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">Current Stock</label>
+                <input 
+                  type="number" 
+                  required
+                  min="0"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose transition-colors font-bold text-navy"
+                  placeholder="e.g., 25"
+                  value={product.stock || ""}
+                  onChange={(e) => setProduct({...product, stock: parseInt(e.target.value) || 0})}
+                />
               </div>
             </div>
           </div>

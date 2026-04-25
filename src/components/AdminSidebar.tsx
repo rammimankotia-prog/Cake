@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getShopStatus } from "@/lib/shop-status";
+import { getLowStockProducts } from "@/app/actions/inventory";
 
 const navItems = [
   { href: "/admin", icon: "⬡", label: "Dashboard", exact: true, module: "dashboard" },
@@ -25,6 +26,8 @@ export default function AdminSidebar() {
     name: "Super Admin",
     email: "super@delishmama.in"
   });
+  const [lowStockItems, setLowStockItems] = useState<{ id: string, name: string, stock: number }[]>([]);
+  const [showLowStock, setShowLowStock] = useState(false);
 
   const refreshStatus = () => {
     try {
@@ -51,6 +54,14 @@ export default function AdminSidebar() {
         setUser(JSON.parse(savedUser));
       } catch(e) {}
     }
+
+    // Check for low stock
+    getLowStockProducts().then(items => {
+      if (items && items.length > 0) {
+        setLowStockItems(items);
+        setShowLowStock(true);
+      }
+    });
 
     return () => window.removeEventListener("bakery-settings-updated", refreshStatus);
   }, []);
@@ -176,6 +187,47 @@ export default function AdminSidebar() {
           <svg className="w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
         </button>
       </div>
+
+      {/* Low Stock Popup */}
+      {showLowStock && lowStockItems.length > 0 && (
+        <div className="fixed bottom-6 right-6 z-[100] animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="bg-white rounded-3xl shadow-2xl border-l-8 border-rose p-6 max-w-sm relative group">
+            <button 
+              onClick={() => setShowLowStock(false)}
+              className="absolute top-4 right-4 text-navy/20 hover:text-rose transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            
+            <div className="flex items-start space-x-4">
+              <div className="w-12 h-12 bg-rose/10 rounded-2xl flex items-center justify-center text-2xl">
+                ⚠️
+              </div>
+              <div className="flex-1">
+                <h4 className="text-navy font-bold text-sm">Low Stock Alert</h4>
+                <p className="text-navy/60 text-xs mt-1">The following items are almost finished (less than 2 left):</p>
+                
+                <div className="mt-3 space-y-2 max-h-32 overflow-y-auto custom-scrollbar pr-2">
+                  {lowStockItems.map(item => (
+                    <div key={item.id} className="flex justify-between items-center bg-slate-50 px-3 py-2 rounded-xl">
+                      <span className="text-[11px] font-bold text-navy truncate mr-2">{item.name}</span>
+                      <span className="text-[10px] bg-rose text-white px-2 py-0.5 rounded-full font-bold">{item.stock} left</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Link 
+                  href="/admin/inventory" 
+                  onClick={() => setShowLowStock(false)}
+                  className="mt-4 block text-center py-2 bg-navy text-white text-[11px] font-bold rounded-xl hover:bg-navy/90 transition-all"
+                >
+                  Update Inventory
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 }
