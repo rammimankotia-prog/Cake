@@ -488,11 +488,28 @@ export default function AdminInventory() {
       <AdminSidebar />
       <main className="flex-1 ml-64">
         <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-8 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-serif font-bold text-navy">Inventory Flow</h1>
-            <p className="text-navy/40 text-sm">Create or edit your studio masterpieces.</p>
+          <div className="flex items-center space-x-6">
+            <Link 
+              href="/admin/categories" 
+              className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-navy/40 hover:text-rose hover:border-rose/20 transition-all active:scale-95"
+              title="Back to Menu"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </Link>
+            <div>
+              <h1 className="text-2xl font-serif font-bold text-navy">Inventory Flow</h1>
+              <p className="text-navy/40 text-sm">Create or edit your studio masterpieces.</p>
+            </div>
           </div>
           <div className="flex items-center space-x-3">
+            <Link 
+              href="/admin/categories"
+              className="text-[10px] font-bold uppercase tracking-widest text-navy/40 hover:text-rose transition-colors"
+            >
+              Close Window
+            </Link>
             <span className="text-[10px] font-bold uppercase tracking-widest text-navy/30 bg-navy/5 px-3 py-2 rounded-xl">Admin Showcase</span>
           </div>
         </header>
