@@ -71,7 +71,10 @@ export default function PincodeChecker() {
         </form>
         
         <button 
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            localStorage.setItem('pincode_checked', 'true');
+            setIsOpen(false);
+          }}
           className="w-full mt-4 text-navy/40 text-xs font-bold uppercase tracking-widest hover:text-navy transition-colors"
         >
           Just Browsing
