@@ -46,6 +46,9 @@ model Product {
   lowStock      Int       @default(5)
   weights       String?   // Store as comma-separated: "500g, 1kg"
   isActive      Boolean   @default(true)
+  imageZoom     Float     @default(1)
+  imagePosX     Float     @default(50)
+  imagePosY     Float     @default(50)
 }
 
 model ShopSettings {

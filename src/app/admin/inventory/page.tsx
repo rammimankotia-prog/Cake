@@ -22,6 +22,7 @@ function InventoryContent() {
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageConfig, setImageConfig] = useState({ zoom: 1, posX: 50, posY: 50 });
   const [status, setStatus] = useState<null | 'idle' | 'saving' | 'success' | 'draft' | 'loading'>('idle');
   const [isDragging, setIsDragging] = useState(false);
 
@@ -41,6 +42,8 @@ function InventoryContent() {
             variantPrices: data.variants.reduce((acc, v) => ({ ...acc, [v.name]: v.price }), {})
           });
           setImagePreview(data.image);
+          // @ts-ignore
+          setImageConfig({ zoom: data.imageZoom || 1, posX: data.imagePosX || 50, posY: data.imagePosY || 50 });
           setStatus('idle');
         }
       });
@@ -115,10 +118,11 @@ function InventoryContent() {
     setStatus('saving');
     
     try {
+      const finalData = { ...product, imagePreview, ...imageConfig };
       if (editId) {
-        await updateProductAction(editId, { ...product, imagePreview });
+        await updateProductAction(editId, finalData);
       } else {
-        await createProduct({ ...product, imagePreview });
+        await createProduct(finalData);
       }
       
       setStatus('success');
@@ -137,6 +141,7 @@ function InventoryContent() {
             variantPrices: { "500g": 0, "1kg": 0 }
           });
           setImagePreview(null);
+          setImageConfig({ zoom: 1, posX: 50, posY: 50 });
         }
       }, 2000);
     } catch (err) {
@@ -148,7 +153,7 @@ function InventoryContent() {
   const handleSaveDraft = async () => {
     setStatus('saving');
     await new Promise(resolve => setTimeout(resolve, 1000));
-    localStorage.setItem('inventory_draft', JSON.stringify({ ...product, imagePreview }));
+    localStorage.setItem('inventory_draft', JSON.stringify({ ...product, imagePreview, ...imageConfig }));
     setStatus('draft');
     setTimeout(() => setStatus('idle'), 3000);
   };
@@ -326,7 +331,17 @@ function InventoryContent() {
               }`}
             >
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover rounded-xl" />
+                <div className="w-full h-full relative overflow-hidden rounded-xl">
+                  <img 
+                    src={imagePreview} 
+                    alt="Preview" 
+                    className="w-full h-full object-cover"
+                    style={{
+                      transform: `scale(${imageConfig.zoom})`,
+                      objectPosition: `${imageConfig.posX}% ${imageConfig.posY}%`
+                    }}
+                  />
+                </div>
               ) : (
                 <>
                   <div className="w-12 h-12 bg-white shadow-sm text-navy/30 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 group-hover:text-rose transition-all">
@@ -334,10 +349,62 @@ function InventoryContent() {
                   </div>
                   <p className="text-xs font-bold text-navy/60">Drop image here</p>
                   <p className="text-[10px] text-navy/30 mt-1">or click to browse files</p>
-                  <p className="text-[9px] text-navy/20 mt-3 bg-white px-2 py-1 rounded border border-slate-100">JPG, PNG up to 5MB</p>
                 </>
               )}
             </div>
+
+            {imagePreview && (
+              <div className="mt-6 space-y-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-navy/40 uppercase tracking-widest">Adjust View</span>
+                  <button 
+                    type="button"
+                    onClick={() => setImageConfig({ zoom: 1, posX: 50, posY: 50 })}
+                    className="text-[9px] font-bold text-rose uppercase tracking-widest hover:underline"
+                  >
+                    Reset
+                  </button>
+                </div>
+                
+                <div className="space-y-3">
+                  {/* Zoom */}
+                  <div className="flex items-center space-x-3">
+                    <span className="text-[10px] font-bold text-navy/30 w-8">Zoom</span>
+                    <input 
+                      type="range" min="1" max="3" step="0.1" 
+                      value={imageConfig.zoom}
+                      onChange={(e) => setImageConfig({...imageConfig, zoom: parseFloat(e.target.value)})}
+                      className="flex-1 accent-rose h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-[10px] font-bold text-navy/60 w-8 text-right">{imageConfig.zoom}x</span>
+                  </div>
+
+                  {/* Position X */}
+                  <div className="flex items-center space-x-3">
+                    <span className="text-[10px] font-bold text-navy/30 w-8">H-Pos</span>
+                    <input 
+                      type="range" min="0" max="100" step="1" 
+                      value={imageConfig.posX}
+                      onChange={(e) => setImageConfig({...imageConfig, posX: parseInt(e.target.value)})}
+                      className="flex-1 accent-navy h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-[10px] font-bold text-navy/60 w-8 text-right">{imageConfig.posX}%</span>
+                  </div>
+
+                  {/* Position Y */}
+                  <div className="flex items-center space-x-3">
+                    <span className="text-[10px] font-bold text-navy/30 w-8">V-Pos</span>
+                    <input 
+                      type="range" min="0" max="100" step="1" 
+                      value={imageConfig.posY}
+                      onChange={(e) => setImageConfig({...imageConfig, posY: parseInt(e.target.value)})}
+                      className="flex-1 accent-navy h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-[10px] font-bold text-navy/60 w-8 text-right">{imageConfig.posY}%</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="glass p-8 rounded-3xl bg-white border border-slate-100 shadow-sm space-y-6">

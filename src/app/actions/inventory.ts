@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function createProduct(data: any) {
-  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview } = data;
+  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview, zoom, posX, posY } = data;
 
   let dbCategory = await prisma.category.findFirst({
     where: { name: category }
@@ -27,6 +27,9 @@ export async function createProduct(data: any) {
       stock: 15,
       weights: weights.join(", "),
       isActive: true,
+      imageZoom: zoom || 1,
+      imagePosX: posX || 50,
+      imagePosY: posY || 50,
       variants: {
         create: weights.map((w: string) => ({
           name: w,
@@ -53,7 +56,7 @@ export async function getProductAction(id: string) {
 }
 
 export async function updateProductAction(id: string, data: any) {
-  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview } = data;
+  const { name, category, description, basePrice, discountPct, weights, variantPrices, imagePreview, zoom, posX, posY } = data;
 
   let dbCategory = await prisma.category.findFirst({
     where: { name: category }
@@ -75,11 +78,14 @@ export async function updateProductAction(id: string, data: any) {
       discountPct,
       categoryId: dbCategory.id,
       weights: weights.join(", "),
-      image: imagePreview || undefined // Only update if new image provided
+      image: imagePreview || undefined,
+      imageZoom: zoom,
+      imagePosX: posX,
+      imagePosY: posY
     }
   });
 
-  // Handle variants: easiest is to delete and recreate or sync
+  // Handle variants
   await prisma.variant.deleteMany({
     where: { productId: id }
   });

@@ -21,9 +21,15 @@ interface ProductCardProps {
   variants?: Variant[];
   badge?: string;
   badgeColor?: string;
+  imageZoom?: number;
+  imagePosX?: number;
+  imagePosY?: number;
 }
 
-export default function ProductCard({ title, description, basePrice, image, variants, badge, badgeColor = "bg-rose" }: ProductCardProps) {
+export default function ProductCard({ 
+  title, description, basePrice, image, variants, badge, badgeColor = "bg-rose",
+  imageZoom = 1, imagePosX = 50, imagePosY = 50
+}: ProductCardProps) {
   const [selectedVariant, setSelectedVariant] = useState<Variant | null>(variants?.[0] || null);
   const [added, setAdded] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -53,7 +59,11 @@ export default function ProductCard({ title, description, basePrice, image, vari
           src={imgError ? '/hero.png' : (image || '/hero.png')}
           alt={title}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="object-cover transition-transform duration-700"
+          style={{
+            transform: `scale(${imageZoom})`,
+            objectPosition: `${imagePosX}% ${imagePosY}%`
+          }}
           onError={() => setImgError(true)}
         />
 

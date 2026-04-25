@@ -46,6 +46,9 @@ export default async function CatalogPage() {
                   description={product.description}
                   basePrice={product.basePrice}
                   image={product.image}
+                  imageZoom={product.imageZoom}
+                  imagePosX={product.imagePosX}
+                  imagePosY={product.imagePosY}
                   variants={product.variants.map(v => ({
                     id: v.id,
                     name: v.name,
