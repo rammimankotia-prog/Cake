@@ -229,8 +229,8 @@ export default function Home() {
       <section className="py-20 bg-surface-high text-on-high">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
           <div className="space-y-4">
-            <div className="text-gold text-4xl font-serif italic">Russia-Trained</div>
-            <p className="text-on-high/60 text-sm">Chef Bhawna brings international pastry artistry to every single creation.</p>
+            <div className="text-gold text-4xl font-serif italic">100% Veg</div>
+            <p className="text-on-high/60 text-sm">Every single creation at Delish Mama is 100% eggless and vegetarian, baked with love.</p>
           </div>
           <div className="space-y-4">
             <div className="text-gold text-4xl font-serif italic">Midnight Ready</div>
