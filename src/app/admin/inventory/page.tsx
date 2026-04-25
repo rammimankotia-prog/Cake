@@ -1,6 +1,7 @@
 "use client";
 
 import AdminSidebar from "@/components/AdminSidebar";
+import Link from "next/link";
 import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getProductAction, updateProductAction, createProduct } from "@/app/actions/inventory";
