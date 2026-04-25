@@ -123,8 +123,6 @@ export default async function AdminDashboard() {
     }))
   ].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 4);
 
-  ].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 4);
-
   try {
     // We already did some prisma calls above, but let's wrap the whole return
     return (
