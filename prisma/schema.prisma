@@ -49,6 +49,8 @@ model Product {
   imageZoom     Float?    @default(1)
   imagePosX     Float?    @default(50)
   imagePosY     Float?    @default(50)
+  cgst          Float     @default(0)
+  sgst          Float     @default(0)
 }
 
 model ShopSettings {

@@ -61,6 +61,8 @@ export async function GET() {
       try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN imagePosY REAL DEFAULT 50`); } catch(e) {}
       try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN stock INTEGER DEFAULT 0`); } catch(e) {}
       try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN lowStock INTEGER DEFAULT 5`); } catch(e) {}
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN cgst REAL DEFAULT 0`); } catch(e) {}
+      try { await prismaClient.$executeRawUnsafe(`ALTER TABLE Product ADD COLUMN sgst REAL DEFAULT 0`); } catch(e) {}
       logs.push("Manual SQL: Columns addition attempted");
     } catch (e: any) {
       logs.push("Manual SQL Note: " + e.message);

@@ -19,6 +19,8 @@ function InventoryContent() {
     basePrice: 0,
     discountPct: 0,
     stock: 0,
+    cgst: 0,
+    sgst: 0,
     weights: ["500g", "1kg"],
     variantPrices: { "500g": 0, "1kg": 0 } as Record<string, number>
   });
@@ -41,6 +43,8 @@ function InventoryContent() {
             basePrice: data.basePrice,
             discountPct: data.discountPct || 0,
             stock: data.stock || 0,
+            cgst: data.cgst || 0,
+            sgst: data.sgst || 0,
             weights: data.variants.map(v => v.name),
             variantPrices: data.variants.reduce((acc, v) => ({ ...acc, [v.name]: v.price }), {})
           });
@@ -141,6 +145,8 @@ function InventoryContent() {
             basePrice: 0,
             discountPct: 0,
             stock: 0,
+            cgst: 0,
+            sgst: 0,
             weights: ["500g", "1kg"],
             variantPrices: { "500g": 0, "1kg": 0 }
           });
@@ -199,8 +205,8 @@ function InventoryContent() {
               />
             </div>
 
-            <div className="grid grid-cols-3 gap-6">
-              <div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="col-span-2 md:col-span-1">
                 <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">Category</label>
                 <select 
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose transition-colors"
@@ -229,16 +235,53 @@ function InventoryContent() {
                 </div>
               </div>
               <div>
-                <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">Current Stock</label>
+                <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">Stock</label>
                 <input 
                   type="number" 
                   required
                   min="0"
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose transition-colors font-bold text-navy"
-                  placeholder="e.g., 25"
+                  placeholder="25"
                   value={product.stock || ""}
                   onChange={(e) => setProduct({...product, stock: parseInt(e.target.value) || 0})}
                 />
+              </div>
+              <div className="hidden md:block"></div> {/* Spacer for alignment */}
+            </div>
+
+            {/* Taxes Row */}
+            <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-6">
+              <div>
+                <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">CGST (%)</label>
+                <div className="relative">
+                  <input 
+                    type="number" 
+                    step="0.1"
+                    min="0"
+                    max="100"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose transition-colors font-bold text-navy"
+                    placeholder="e.g., 2.5"
+                    value={product.cgst || ""}
+                    onChange={(e) => setProduct({...product, cgst: parseFloat(e.target.value) || 0})}
+                  />
+                  <span className="absolute right-4 top-3 text-navy/30 font-bold">%</span>
+                </div>
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-navy/40 uppercase tracking-widest mb-2">SGST (%)</label>
+                <div className="relative">
+                  <input 
+                    type="number" 
+                    step="0.1"
+                    min="0"
+                    max="100"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:border-rose transition-colors font-bold text-navy"
+                    placeholder="e.g., 2.5"
+                    value={product.sgst || ""}
+                    onChange={(e) => setProduct({...product, sgst: parseFloat(e.target.value) || 0})}
+                  />
+                  <span className="absolute right-4 top-3 text-navy/30 font-bold">%</span>
+                </div>
               </div>
             </div>
           </div>
@@ -272,37 +315,38 @@ function InventoryContent() {
             {/* Variant Pricing Table */}
             {product.weights.length > 0 && (
               <div className="bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden">
-                <div className="grid grid-cols-2 gap-4 p-4 border-b border-slate-100 bg-slate-100/50">
+                <div className="grid grid-cols-3 gap-4 p-4 border-b border-slate-100 bg-slate-100/50">
                   <div className="text-[10px] font-bold text-navy/40 uppercase tracking-widest">Active Variant</div>
-                  <div className="text-[10px] font-bold text-navy/40 uppercase tracking-widest">Specific Price (₹)</div>
+                  <div className="text-[10px] font-bold text-navy/40 uppercase tracking-widest text-center">Base Price (₹)</div>
+                  <div className="text-[10px] font-bold text-navy/40 uppercase tracking-widest text-right">Incl. GST (₹)</div>
                 </div>
                 <div className="divide-y divide-slate-100">
                   {product.weights.map(weight => {
                     const variantPrice = product.variantPrices[weight] || 0;
-                    const discountedVariant = variantPrice - (variantPrice * (product.discountPct / 100));
+                    const taxRate = (product.cgst + product.sgst) / 100;
+                    const totalPrice = variantPrice * (1 + taxRate);
+                    const discountedPrice = totalPrice - (totalPrice * (product.discountPct / 100));
                     
                     return (
-                      <div key={weight} className="grid grid-cols-2 gap-4 p-4 items-center hover:bg-white transition-colors">
+                      <div key={weight} className="grid grid-cols-3 gap-4 p-4 items-center hover:bg-white transition-colors">
                         <div className="font-bold text-navy flex items-center space-x-2">
                           <span className="w-2 h-2 rounded-full bg-rose"></span>
                           <span>{weight}</span>
                         </div>
-                        <div className="relative flex items-center space-x-3">
-                          <div className="relative flex-1">
-                            <span className="absolute left-3 top-2.5 text-navy/40 font-bold text-sm">₹</span>
-                            <input 
-                              type="number" 
-                              min="0"
-                              className="w-full bg-white border border-slate-200 rounded-lg pl-7 pr-3 py-2 text-sm focus:outline-none focus:border-rose transition-colors font-bold text-navy"
-                              value={product.variantPrices[weight] || ""}
-                              onChange={(e) => updateVariantPrice(weight, parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
+                        <div className="relative">
+                          <span className="absolute left-3 top-2.5 text-navy/40 font-bold text-sm">₹</span>
+                          <input 
+                            type="number" 
+                            min="0"
+                            className="w-full bg-white border border-slate-200 rounded-lg pl-7 pr-3 py-2 text-sm focus:outline-none focus:border-rose transition-colors font-bold text-navy"
+                            value={product.variantPrices[weight] || ""}
+                            onChange={(e) => updateVariantPrice(weight, parseFloat(e.target.value) || 0)}
+                          />
+                        </div>
+                        <div className="text-right">
+                          <div className="text-sm font-bold text-navy">₹{discountedPrice.toFixed(0)}</div>
                           {product.discountPct > 0 && (
-                            <div className="text-right w-20">
-                              <div className="text-[9px] text-mint font-bold uppercase tracking-widest">After {product.discountPct}%</div>
-                              <div className="text-sm font-bold text-navy">₹{discountedVariant.toFixed(0)}</div>
-                            </div>
+                            <div className="text-[9px] text-mint font-bold uppercase tracking-widest">After {product.discountPct}%</div>
                           )}
                         </div>
                       </div>
