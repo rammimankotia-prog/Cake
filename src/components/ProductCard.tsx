@@ -21,9 +21,9 @@ interface ProductCardProps {
   variants?: Variant[];
   badge?: string;
   badgeColor?: string;
-  imageZoom?: number;
-  imagePosX?: number;
-  imagePosY?: number;
+  imageZoom?: number | null;
+  imagePosX?: number | null;
+  imagePosY?: number | null;
 }
 
 export default function ProductCard({ 
