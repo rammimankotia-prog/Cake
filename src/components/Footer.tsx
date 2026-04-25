@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-cream py-16 border-t border-navy/5">
+    <footer className="bg-surface-low py-16 border-t border-text-high/5">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
@@ -11,34 +11,34 @@ export default function Footer() {
                 <img src="/logo.png" alt="Delish Mama Logo" className="w-full h-full object-contain" />
               </div>
               <div>
-                <span className="text-3xl font-serif font-bold text-navy block leading-none">
+                <span className="text-3xl font-serif font-bold text-text-high block leading-none">
                   Delish <span className="text-rose">Mama</span>
                 </span>
                 <div className="flex items-center space-x-3 mt-2">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-navy/30">Cake Studio & Cafe</p>
-                  <span className="text-[9px] font-bold text-rose/30 uppercase tracking-widest border-l border-navy/10 pl-3">Est. 2024</span>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-low">Cake Studio & Cafe</p>
+                  <span className="text-[9px] font-bold text-rose/30 uppercase tracking-widest border-l border-text-high/10 pl-3">Est. 2024</span>
                 </div>
               </div>
             </Link>
-            <p className="text-navy/60 text-sm leading-relaxed mb-4">
+            <p className="text-text-mid text-sm leading-relaxed mb-4">
               2nd Main Rd, opp. MCD Parking, Model Town Phase 2,<br/>
               Pocket E, Model Town Phase I, Delhi, 110033
             </p>
-            <a href="tel:+917661900009" className="text-navy font-bold hover:text-rose transition-colors block mb-2">📞 076619 00009</a>
-            <p className="text-navy/40 text-xs mt-1">Open: 9 AM – 1 AM · 7 days a week</p>
+            <a href="tel:+917661900009" className="text-text-high font-bold hover:text-rose transition-colors block mb-2">📞 076619 00009</a>
+            <p className="text-text-low text-xs mt-1">Open: 9 AM – 1 AM · 7 days a week</p>
           </div>
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest text-navy/40 mb-6">Quick Links</h4>
+            <h4 className="text-sm font-bold uppercase tracking-widest text-text-low mb-6">Quick Links</h4>
             <ul className="space-y-3 text-sm">
               {[["Catalog", "/catalog"], ["About Us", "/about"], ["Contact", "/contact"], ["Custom Cakes", "/contact"], ["Admin", "/admin"]].map(([label, href]) => (
-                <li key={label}><Link href={href} className="text-navy/60 hover:text-rose transition-colors">{label}</Link></li>
+                <li key={label}><Link href={href} className="text-text-mid hover:text-rose transition-colors">{label}</Link></li>
               ))}
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-widest text-navy/40 mb-6">Connect</h4>
+            <h4 className="text-sm font-bold uppercase tracking-widest text-text-low mb-6">Connect</h4>
             <div className="space-y-4">
-              <a href="https://www.instagram.com/delishmama_/" target="_blank" className="flex items-center space-x-2 text-navy/60 hover:text-rose transition-colors text-sm font-bold">
+              <a href="https://www.instagram.com/delishmama_/" target="_blank" className="flex items-center space-x-2 text-text-mid hover:text-rose transition-colors text-sm font-bold">
                 <span>Instagram</span><span className="text-xs">→</span>
               </a>
               <a href="https://wa.me/917661900009" target="_blank" className="inline-flex items-center space-x-2 bg-mint text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-mint/90 transition-all shadow-md">
@@ -50,9 +50,9 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="border-t border-navy/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-navy/30 text-[10px] uppercase tracking-widest">© 2026 Delish Mama - Cake Studio & Cafe. All rights reserved.</p>
-          <p className="text-navy/30 text-[10px]">FSSAI Certified · Made with ❤️ in Model Town, Delhi</p>
+        <div className="border-t border-text-high/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-text-low text-[10px] uppercase tracking-widest">© 2026 Delish Mama - Cake Studio & Cafe. All rights reserved.</p>
+          <p className="text-text-low text-[10px]">FSSAI Certified · Made with ❤️ in Model Town, Delhi</p>
         </div>
       </div>
     </footer>

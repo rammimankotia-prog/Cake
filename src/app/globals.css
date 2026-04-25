@@ -12,8 +12,42 @@
   --mint: #4CAF50;
   --gold: #D4AF37;
   
+  /* Semantic tokens */
+  --surface-low: var(--cream);
+  --surface-mid: var(--oat);
+  --surface-high: var(--navy);
+  --text-high: var(--navy);
+  --text-mid: rgba(10, 17, 40, 0.6);
+  --text-low: rgba(10, 17, 40, 0.4);
+  --on-high: #FFFFFF;
+  
   --card-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(10, 17, 40, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #050A18;
+    --foreground: #F1F5F9;
+    
+    --cream: #050A18;
+    --oat: #0F172A;
+    --navy: #F1F5F9;
+    --espresso: #E2E8F0;
+    --rose: #FF6B9C;
+    
+    /* Semantic tokens for dark mode */
+    --surface-low: #050A18;
+    --surface-mid: #0F172A;
+    --surface-high: #1E293B; /* Deep Blue-Grey */
+    --text-high: #F1F5F9;
+    --text-mid: rgba(241, 245, 249, 0.6);
+    --text-low: rgba(241, 245, 249, 0.4);
+    --on-high: #F1F5F9;
+    
+    --card-bg: rgba(15, 23, 42, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
 }
 
 @theme inline {
@@ -27,6 +61,14 @@
   --color-rose: var(--rose);
   --color-mint: var(--mint);
   --color-gold: var(--gold);
+
+  --color-surface-low: var(--surface-low);
+  --color-surface-mid: var(--surface-mid);
+  --color-surface-high: var(--surface-high);
+  --color-text-high: var(--text-high);
+  --color-text-mid: var(--text-mid);
+  --color-text-low: var(--text-low);
+  --color-on-high: var(--on-high);
   
   --font-sans: "Inter", var(--font-geist-sans);
   --font-serif: "Playfair Display", serif;

@@ -71,7 +71,7 @@ const INSTAGRAM_POSTS = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="min-h-screen bg-surface-low">
       <Navbar />
 
       {/* ── HERO ── */}
@@ -83,7 +83,7 @@ export default function Home() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/40 to-navy/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
 
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
           <span className="inline-block bg-rose/20 border border-rose/40 text-rose text-xs font-bold uppercase tracking-[0.3em] px-4 py-2 rounded-full mb-6">
@@ -123,35 +123,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TRUST BADGES (Bakingo-style) ── */}
-      <section className="py-10 bg-navy">
+      {/* ── TRUST BADGES ── */}
+      <section className="py-10 bg-surface-high">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
           {TRUST_BADGES.map(({ icon, title, desc }) => (
             <div key={title} className="flex items-center space-x-4">
               <span className="text-3xl">{icon}</span>
               <div>
-                <p className="text-white font-bold text-sm">{title}</p>
-                <p className="text-white/50 text-xs">{desc}</p>
+                <p className="text-on-high font-bold text-sm">{title}</p>
+                <p className="text-on-high/60 text-xs">{desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── SHOP BY OCCASION (Bakingo-style) ── */}
-      <section className="py-20 px-4 bg-oat/30">
+      {/* ── SHOP BY OCCASION ── */}
+      <section className="py-20 px-4 bg-surface-mid/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-rose font-bold tracking-widest uppercase text-sm block mb-3">Find Your Perfect Cake</span>
-            <h2 className="text-4xl md:text-5xl font-serif text-navy">Shop by Occasion</h2>
+            <h2 className="text-4xl md:text-5xl font-serif text-text-high">Shop by Occasion</h2>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {OCCASIONS.map(({ icon, label }) => (
               <Link key={label} href={`/catalog?occasion=${label.toLowerCase()}`}
-                className="group flex flex-col items-center p-6 bg-white rounded-2xl hover:shadow-xl transition-all hover:-translate-y-1 border border-navy/5"
+                className="group flex flex-col items-center p-6 bg-surface-low rounded-2xl hover:shadow-xl transition-all hover:-translate-y-1 border border-text-high/5"
               >
                 <span className="text-4xl mb-3 group-hover:scale-110 transition-transform">{icon}</span>
-                <span className="text-sm font-bold text-navy/70 group-hover:text-rose transition-colors">{label}</span>
+                <span className="text-sm font-bold text-text-mid group-hover:text-rose transition-colors">{label}</span>
               </Link>
             ))}
           </div>
@@ -164,9 +164,9 @@ export default function Home() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
               <span className="text-rose font-bold tracking-widest uppercase text-sm mb-4 block">Studio Favourites</span>
-              <h2 className="text-4xl md:text-5xl font-serif text-navy">Our Signature <br/>Masterpieces</h2>
+              <h2 className="text-4xl md:text-5xl font-serif text-text-high">Our Signature <br/>Masterpieces</h2>
             </div>
-            <Link href="/catalog" className="text-navy font-bold border-b-2 border-rose pb-1 hover:text-rose transition-colors">
+            <Link href="/catalog" className="text-text-high font-bold border-b-2 border-rose pb-1 hover:text-rose transition-colors">
               View Full Menu →
             </Link>
           </div>
@@ -179,7 +179,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── BANNER STRIP (Bakingo-style promotional) ── */}
+      {/* ── BANNER STRIP ── */}
       <section className="py-20 bg-rose relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="text-[20rem] font-serif text-white whitespace-nowrap select-none -mt-20">DELISH MAMA DELISH MAMA</div>
@@ -197,14 +197,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── INSTAGRAM FEED (Bakingo-style) ── */}
-      <section className="py-24 px-4 bg-oat/20">
+      {/* ── INSTAGRAM FEED ── */}
+      <section className="py-24 px-4 bg-surface-mid/20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-rose font-bold tracking-widest uppercase text-sm block mb-3">Follow Along</span>
-            <h2 className="text-4xl md:text-5xl font-serif text-navy">A Glimpse from <br/>Our Studio</h2>
+            <h2 className="text-4xl md:text-5xl font-serif text-text-high">A Glimpse from <br/>Our Studio</h2>
             <a href="https://www.instagram.com/delishmama_/" target="_blank"
-               className="inline-flex items-center space-x-2 mt-4 text-navy/60 font-bold hover:text-rose transition-colors">
+               className="inline-flex items-center space-x-2 mt-4 text-text-mid font-bold hover:text-rose transition-colors">
               <span>@delishmama_</span>
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
@@ -216,7 +216,7 @@ export default function Home() {
               <a key={i} href="https://www.instagram.com/delishmama_/" target="_blank"
                  className="group relative aspect-square overflow-hidden rounded-2xl">
                 <Image src={post.src} alt={post.caption} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/50 transition-all duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
                   <span className="text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity text-center px-2">{post.caption}</span>
                 </div>
               </a>
@@ -226,19 +226,19 @@ export default function Home() {
       </section>
 
       {/* ── WHY CHOOSE US ── */}
-      <section className="py-20 bg-navy text-white">
+      <section className="py-20 bg-surface-high text-on-high">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
           <div className="space-y-4">
             <div className="text-gold text-4xl font-serif italic">Russia-Trained</div>
-            <p className="text-white/60 text-sm">Chef Bhawna brings international pastry artistry to every single creation.</p>
+            <p className="text-on-high/60 text-sm">Chef Bhawna brings international pastry artistry to every single creation.</p>
           </div>
           <div className="space-y-4">
             <div className="text-gold text-4xl font-serif italic">Midnight Ready</div>
-            <p className="text-white/60 text-sm">Order up to 1 AM. Perfect for surprise parties and last-minute celebrations.</p>
+            <p className="text-on-high/60 text-sm">Order up to 1 AM. Perfect for surprise parties and last-minute celebrations.</p>
           </div>
           <div className="space-y-4">
             <div className="text-gold text-4xl font-serif italic">FSSAI Safe</div>
-            <p className="text-white/60 text-sm">Certified hygienic kitchen with only the freshest, locally sourced ingredients.</p>
+            <p className="text-on-high/60 text-sm">Certified hygienic kitchen with only the freshest, locally sourced ingredients.</p>
           </div>
         </div>
       </section>

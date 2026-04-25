@@ -52,9 +52,9 @@ export default function ProductCard({
   };
 
   return (
-    <div className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-navy/5">
+    <div className="group bg-surface-low rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-text-high/5">
       {/* Product Image */}
-      <div className="relative h-64 w-full overflow-hidden bg-oat/50">
+      <div className="relative h-64 w-full overflow-hidden bg-surface-mid/50">
         <Image
           src={imgError ? '/hero.png' : (image || '/hero.png')}
           alt={title}
@@ -75,23 +75,23 @@ export default function ProductCard({
         )}
 
         {/* Price Tag */}
-        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
-          <span className="text-navy font-bold text-sm">₹{displayPrice.toFixed(0)}</span>
+        <div className="absolute top-4 right-4 bg-surface-low/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+          <span className="text-text-high font-bold text-sm">₹{displayPrice.toFixed(0)}</span>
         </div>
 
         {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/10 transition-all duration-300" />
+        <div className="absolute inset-0 bg-text-high/0 group-hover:bg-text-high/5 transition-all duration-300" />
       </div>
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-lg font-serif font-bold text-navy mb-2 leading-tight">{title}</h3>
-        <p className="text-navy/50 text-sm mb-5 line-clamp-2 leading-relaxed">{description}</p>
+        <h3 className="text-lg font-serif font-bold text-text-high mb-2 leading-tight">{title}</h3>
+        <p className="text-text-mid text-sm mb-5 line-clamp-2 leading-relaxed">{description}</p>
 
         {/* Weight/Variant Selector */}
         {variants && variants.length > 0 && (
           <div className="mb-5">
-            <p className="text-[10px] font-bold text-navy/30 uppercase tracking-widest mb-2">Select Weight</p>
+            <p className="text-[10px] font-bold text-text-low uppercase tracking-widest mb-2">Select Weight</p>
             <div className="flex flex-wrap gap-2">
               {variants.map((v) => (
                 <button
@@ -99,8 +99,8 @@ export default function ProductCard({
                   onClick={() => setSelectedVariant(v)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     selectedVariant?.id === v.id
-                      ? "bg-navy text-white shadow-sm"
-                      : "bg-oat text-navy/60 hover:bg-navy/10"
+                      ? "bg-text-high text-background shadow-sm"
+                      : "bg-surface-mid text-text-mid hover:bg-text-high/10"
                   }`}
                 >
                   {v.name}
@@ -116,7 +116,7 @@ export default function ProductCard({
           disabled={!shopStatus.isOpen}
           className={`w-full py-3 rounded-2xl font-bold text-sm transition-all duration-300 flex items-center justify-center space-x-2 ${
             !shopStatus.isOpen
-              ? "bg-navy/5 text-navy/30 cursor-not-allowed"
+              ? "bg-text-high/5 text-text-low cursor-not-allowed"
               : added
               ? "bg-mint text-white scale-95"
               : "bg-rose text-white hover:bg-rose/90 hover:shadow-lg active:scale-95"

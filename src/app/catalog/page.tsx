@@ -21,14 +21,14 @@ export default async function CatalogPage() {
     });
 
     return (
-      <main className="min-h-screen bg-cream">
+      <main className="min-h-screen bg-surface-low">
         <Navbar />
         
         <div className="pt-32 pb-24 px-4 max-w-7xl mx-auto">
           <header className="mb-16">
             <span className="text-rose font-bold tracking-widest uppercase text-sm mb-4 block">Our Online Store</span>
-            <h1 className="text-5xl md:text-6xl font-serif text-espresso">The E-Menu</h1>
-            <p className="text-espresso/60 mt-4 max-w-xl">
+            <h1 className="text-5xl md:text-6xl font-serif text-text-high">The E-Menu</h1>
+            <p className="text-text-mid mt-4 max-w-xl">
               Browse our selection of fresh artisanal breads and pastries. Hand-baked daily and delivered fresh to your door.
             </p>
           </header>
@@ -36,8 +36,8 @@ export default async function CatalogPage() {
           {categories.map((category) => (
             <section key={category.id} className="mb-20">
               <div className="flex items-center space-x-4 mb-10">
-                <h2 className="text-3xl font-serif text-espresso whitespace-nowrap">{category.name}</h2>
-                <div className="h-px bg-espresso/10 w-full"></div>
+                <h2 className="text-3xl font-serif text-text-high whitespace-nowrap">{category.name}</h2>
+                <div className="h-px bg-text-high/10 w-full"></div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -68,13 +68,13 @@ export default async function CatalogPage() {
     );
   } catch (error: any) {
     return (
-      <main className="min-h-screen bg-cream flex items-center justify-center p-8">
+      <main className="min-h-screen bg-surface-low flex items-center justify-center p-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-rose mb-4">Error Loading Catalog</h1>
           <pre className="bg-rose/5 p-4 rounded-xl text-left overflow-auto max-w-2xl text-xs text-rose/70">
             {error.message}
           </pre>
-          <p className="mt-4 text-navy/40">Please try running /api/setup to fix database issues.</p>
+          <p className="mt-4 text-text-low">Please try running /api/setup to fix database issues.</p>
         </div>
       </main>
     );
