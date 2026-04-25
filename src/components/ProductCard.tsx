@@ -61,8 +61,8 @@ export default function ProductCard({
           fill
           className="object-cover transition-transform duration-700"
           style={{
-            transform: `scale(${imageZoom})`,
-            objectPosition: `${imagePosX}% ${imagePosY}%`
+            transform: `scale(${imageZoom ?? 1})`,
+            objectPosition: `${imagePosX ?? 50}% ${imagePosY ?? 50}%`
           }}
           onError={() => setImgError(true)}
         />
