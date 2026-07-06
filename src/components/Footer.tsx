@@ -26,6 +26,11 @@ export default function Footer() {
             </p>
             <a href="tel:+917661900009" className="text-text-high font-bold hover:text-rose transition-colors block mb-2">📞 076619 00009</a>
             <p className="text-text-low text-xs mt-1">Open: 9 AM – 1 AM · 7 days a week</p>
+            <div className="mt-6">
+              <p className="text-text-low text-xs">
+                In association with <a href="https://godwinhotels.com/" target="_blank" className="hover:text-rose transition-colors font-semibold">Godwin Hotels</a> &amp; <a href="https://grandholidaytours.com/" target="_blank" className="hover:text-rose transition-colors font-semibold">Grand Holidays</a>
+              </p>
+            </div>
           </div>
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest text-text-low mb-6">Quick Links</h4>
